@@ -1,47 +1,65 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref } from "vue";
+const text = ref("");
+const posts = ref([]);
+function addPost(){
+  posts.value.push(text.value);
+  text.value = "";
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
   <main>
-    <TheWelcome />
+    <div class="container">
+      <form class="card" @submit.prevent="addPost">
+        <textarea name="post" id="post" placeholder="À quoi tu gamberges ?" v-model="text"></textarea>
+        <button type="submit">Publier</button>
+      </form>
+      <p v-for="(post, index) in posts" :key="index">{{ post }}</p>
+    </div>
   </main>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+  .container {
+  height: 100vh;
+  margin: 0 auto;
+  max-width: 640px;
+}
+.card {
+  background-color: var(--color-bg-secondary);
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  margin-bottom: 1rem;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  padding: 1rem 1.5rem;
+  width: 100%;
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+textarea {
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  flex: 1;
+  margin-bottom: 1rem;
+  outline: none;
+  padding: 0.5rem 0;
+  resize: none;
+  field-sizing: content;
+}
+button {
+  align-self: flex-end;
+  background: none;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  font-size: 1rem;
+  height: 40px;
+  padding: 0 1rem;
 }
 </style>

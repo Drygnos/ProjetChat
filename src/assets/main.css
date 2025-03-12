@@ -25,6 +25,7 @@ canvas,
 svg {
   display: block;
   max-width: 100%;
+  border-radius: 100%;
 }
 
 /* 6. Inherit fonts for form controls */
